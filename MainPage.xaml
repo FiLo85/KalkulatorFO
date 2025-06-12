@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="KalkulatorFO.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:KalkulatorFO.Models"
+    xmlns:viewmodels="clr-namespace:KalkulatorFO.ViewModels"
+    Title="Kalkulator">
+
+    <ContentPage.BindingContext>
+        <viewmodels:CalculatorViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--  Główny interfejs kalkulatora  -->
+        <Grid Grid.Row="0" IsVisible="{Binding ShowHistory, Converter={StaticResource InvertedBoolConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--  Wyświetlacz  -->
+            <StackLayout
+                Grid.Row="0"
+                Padding="20,40,20,20"
+                BackgroundColor="LightGray">
+                <Label
+                    FontSize="18"
+                    HeightRequest="25"
+                    HorizontalTextAlignment="End"
+                    Text="{Binding CurrentExpression}"
+                    TextColor="Gray" />
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="36"
+                    HorizontalTextAlignment="End"
+                    Text="{Binding Display}"
+                    TextColor="Black" />
+            </StackLayout>
+
+            <!--  Przyciski funkcyjne  -->
+            <Grid
+                Grid.Row="1"
+                Padding="10,0"
+                ColumnSpacing="5"
+                RowSpacing="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    BackgroundColor="Orange"
+                    Command="{Binding ClearEntryCommand}"
+                    Text="CE"
+                    TextColor="White" />
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    BackgroundColor="Orange"
+                    Command="{Binding ClearCommand}"
+                    Text="C"
+                    TextColor="White" />
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    BackgroundColor="Orange"
+                    Command="{Binding BackspaceCommand}"
+                    Text="⌫"
+                    TextColor="White" />
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    BackgroundColor="DarkOrange"
+                    Command="{Binding OperatorCommand}"
+                    CommandParameter="/"
+                    Text="/"
+                    TextColor="White" />
+            </Grid>
+
+            <!--  Klawiatura numeryczna  -->
+            <Grid
+                Grid.Row="2"
+                Padding="10"
+                ColumnSpacing="5"
+                RowSpacing="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!--  Pierwszy rząd  -->
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    BackgroundColor="White"
+                    Command="{Binding NumberCommand}"
+                    CommandParameter="7"
+                    Text="7"
+                    TextColor="Black" />
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    BackgroundColor="White"
+                    Command="{Binding NumberCommand}"
+                    CommandParameter="8"
+                    Text="8"
+                    TextColor="Black" />
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    BackgroundColor="White"
+                    Command="{Binding NumberCommand}"
+                    CommandParameter="9"
+                    Text="9"
+                    TextColor="Black" />
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    BackgroundColor="DarkOrange"
+                    Command="{Binding OperatorCommand}"
+                    CommandParameter="*"
+                    Text="×"
+                    TextColor="White" />
+
+                <!--  Drugi rząd  -->
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    BackgroundColor="White"
+                    Command="{Binding NumberCommand}"
+                    CommandParameter="4"
+                    Text="4"
+                    TextColor="Black" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    BackgroundColor="White"
+                    Command="{Binding NumberCommand}"
+                    CommandParameter="5"
+                    Text="5"
+                    TextColor="Black" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    BackgroundColor="White"
+                    Command="{Binding NumberCommand}"
+                    CommandParameter="6"
+                    Text="6"
+                    TextColor="Black" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    BackgroundColor="DarkOrange"
+                    Command="{Binding OperatorCommand}"
+                    CommandParameter="-"
+                    Text="−"
+                    TextColor="White" />
+
+                <!--  Trzeci rząd  -->
+                <Button
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    BackgroundColor="White"
+                    Command="{Binding NumberCommand}"
+                    CommandParameter="1"
+                    Text="1"
+                    TextColor="Black" />
+                <Button
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    BackgroundColor="White"
+                    Command="{Binding NumberCommand}"
+                    CommandParameter="2"
+                    Text="2"
+                    TextColor="Black" />
+                <Button
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    BackgroundColor="White"
+                    Command="{Binding NumberCommand}"
+                    CommandParameter="3"
+                    Text="3"
+                    TextColor="Black" />
+                <Button
+                    Grid.Row="2"
+                    Grid.Column="3"
+                    BackgroundColor="DarkOrange"
+                    Command="{Binding OperatorCommand}"
+                    CommandParameter="+"
+                    Text="+"
+                    TextColor="White" />
+
+                <!--  Czwarty rząd  -->
+                <Button
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    BackgroundColor="White"
+                    Command="{Binding NumberCommand}"
+                    CommandParameter="0"
+                    Text="0"
+                    TextColor="Black" />
+                <Button
+                    Grid.Row="3"
+                    Grid.Column="2"
+                    BackgroundColor="White"
+                    Command="{Binding NumberCommand}"
+                    CommandParameter="."
+                    Text=","
+                    TextColor="Black" />
+                <Button
+                    Grid.Row="3"
+                    Grid.Column="3"
+                    BackgroundColor="DarkOrange"
+                    Command="{Binding EqualsCommand}"
+                    Text="="
+                    TextColor="White" />
+            </Grid>
+        </Grid>
+
+        <!--  Historia  -->
+        <Grid Grid.Row="0" IsVisible="{Binding ShowHistory}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label
+                Grid.Row="0"
+                Margin="0,20,0,10"
+                FontAttributes="Bold"
+                FontSize="24"
+                HorizontalOptions="Center"
+                Text="Historia obliczeń" />
+
+            <CollectionView Grid.Row="1" ItemsSource="{Binding History}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:CalculationHistory">
+                        <Grid Padding="15,10">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:CalculatorViewModel}}, Path=UseHistoryItemCommand}" CommandParameter="{Binding .}" />
+                            </Grid.GestureRecognizers>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Label
+                                Grid.Row="0"
+                                FontSize="16"
+                                Text="{Binding DisplayText}"
+                                TextColor="Black" />
+                            <Label
+                                Grid.Row="1"
+                                FontSize="12"
+                                Text="{Binding TimeDisplay}"
+                                TextColor="Gray" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button
+                Grid.Row="2"
+                Margin="20,10"
+                BackgroundColor="Red"
+                Command="{Binding ClearHistoryCommand}"
+                Text="Wyczyść historię"
+                TextColor="White" />
+        </Grid>
+
+        <!--  Przycisk historii  -->
+        <Button
+            Grid.Row="1"
+            Margin="10"
+            BackgroundColor="Gray"
+            Command="{Binding ToggleHistoryCommand}"
+            HeightRequest="50"
+            Text="{Binding ShowHistory, Converter={StaticResource HistoryButtonTextConverter}}"
+            TextColor="White" />
+    </Grid>
+
+</ContentPage>
