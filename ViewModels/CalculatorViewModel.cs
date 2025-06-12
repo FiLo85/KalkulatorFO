@@ -14,6 +14,7 @@ namespace KalkulatorFO.ViewModels;
 public class CalculatorViewModel : INotifyPropertyChanged
 {
     private readonly CalculatorService _calculatorService;
+    private readonly ThemeService _themeService;
     private string _display = "0";
     private string _currentExpression = "";
     private bool _isNewNumber = true;
@@ -22,6 +23,7 @@ public class CalculatorViewModel : INotifyPropertyChanged
     public CalculatorViewModel()
     {
         _calculatorService = new CalculatorService();
+        _themeService = ThemeService.Instance;
 
         // Komendy
         NumberCommand = new Command<string>(OnNumberPressed);
@@ -33,6 +35,7 @@ public class CalculatorViewModel : INotifyPropertyChanged
         ToggleHistoryCommand = new Command(OnToggleHistory);
         ClearHistoryCommand = new Command(OnClearHistory);
         UseHistoryItemCommand = new Command<CalculationHistory>(OnUseHistoryItem);
+        ToggleThemeCommand = new Command(OnToggleTheme);
     }
 
     public string Display
@@ -67,6 +70,8 @@ public class CalculatorViewModel : INotifyPropertyChanged
 
     public ObservableCollection<CalculationHistory> History => _calculatorService.History;
 
+    public ThemeService ThemeService => _themeService;
+
     // Komendy
     public ICommand NumberCommand { get; }
     public ICommand OperatorCommand { get; }
@@ -77,6 +82,7 @@ public class CalculatorViewModel : INotifyPropertyChanged
     public ICommand ToggleHistoryCommand { get; }
     public ICommand ClearHistoryCommand { get; }
     public ICommand UseHistoryItemCommand { get; }
+    public ICommand ToggleThemeCommand { get; }
 
     private void OnNumberPressed(string number)
     {
@@ -98,7 +104,6 @@ public class CalculatorViewModel : INotifyPropertyChanged
     {
         if (!string.IsNullOrEmpty(CurrentExpression) && !_isNewNumber)
         {
-            // Jeśli mamy już wyrażenie i nową liczbę, najpierw oblicz
             CurrentExpression += Display;
             try
             {
@@ -185,6 +190,11 @@ public class CalculatorViewModel : INotifyPropertyChanged
             _isNewNumber = true;
             ShowHistory = false;
         }
+    }
+
+    private void OnToggleTheme()
+    {
+        _themeService.ToggleTheme();
     }
 
     public event PropertyChangedEventHandler PropertyChanged;

@@ -11,14 +11,31 @@
         <viewmodels:CalculatorViewModel />
     </ContentPage.BindingContext>
 
-    <Grid>
+    <Grid BackgroundColor="{Binding ThemeService.BackgroundColor}">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <!--  Pasek z przyciskiem motywu  -->
+        <Grid
+            Grid.Row="0"
+            Padding="10,5"
+            BackgroundColor="{Binding ThemeService.DisplayBackgroundColor}">
+            <Button
+                BackgroundColor="{Binding ThemeService.FunctionButtonColor}"
+                Command="{Binding ToggleThemeCommand}"
+                FontSize="12"
+                HeightRequest="35"
+                HorizontalOptions="End"
+                Text="{Binding ThemeService.ThemeButtonText}"
+                TextColor="{Binding ThemeService.ButtonTextColor}"
+                WidthRequest="120" />
+        </Grid>
+
         <!--  Główny interfejs kalkulatora  -->
-        <Grid Grid.Row="0" IsVisible="{Binding ShowHistory, Converter={StaticResource InvertedBoolConverter}}">
+        <Grid Grid.Row="1" IsVisible="{Binding ShowHistory, Converter={StaticResource InvertedBoolConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -29,19 +46,19 @@
             <StackLayout
                 Grid.Row="0"
                 Padding="20,40,20,20"
-                BackgroundColor="LightGray">
+                BackgroundColor="{Binding ThemeService.DisplayBackgroundColor}">
                 <Label
                     FontSize="18"
                     HeightRequest="25"
                     HorizontalTextAlignment="End"
                     Text="{Binding CurrentExpression}"
-                    TextColor="Gray" />
+                    TextColor="{Binding ThemeService.SecondaryTextColor}" />
                 <Label
                     FontAttributes="Bold"
                     FontSize="36"
                     HorizontalTextAlignment="End"
                     Text="{Binding Display}"
-                    TextColor="Black" />
+                    TextColor="{Binding ThemeService.TextColor}" />
             </StackLayout>
 
             <!--  Przyciski funkcyjne  -->
@@ -51,7 +68,7 @@
                 ColumnSpacing="5"
                 RowSpacing="5">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="60" />
+                    <RowDefinition Height="70" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -63,32 +80,36 @@
                 <Button
                     Grid.Row="0"
                     Grid.Column="0"
-                    BackgroundColor="Orange"
+                    BackgroundColor="{Binding ThemeService.FunctionButtonColor}"
                     Command="{Binding ClearEntryCommand}"
+                    FontSize="18"
                     Text="CE"
-                    TextColor="White" />
+                    TextColor="{Binding ThemeService.ButtonTextColor}" />
                 <Button
                     Grid.Row="0"
                     Grid.Column="1"
-                    BackgroundColor="Orange"
+                    BackgroundColor="{Binding ThemeService.FunctionButtonColor}"
                     Command="{Binding ClearCommand}"
+                    FontSize="18"
                     Text="C"
-                    TextColor="White" />
+                    TextColor="{Binding ThemeService.ButtonTextColor}" />
                 <Button
                     Grid.Row="0"
                     Grid.Column="2"
-                    BackgroundColor="Orange"
+                    BackgroundColor="{Binding ThemeService.FunctionButtonColor}"
                     Command="{Binding BackspaceCommand}"
+                    FontSize="18"
                     Text="⌫"
-                    TextColor="White" />
+                    TextColor="{Binding ThemeService.ButtonTextColor}" />
                 <Button
                     Grid.Row="0"
                     Grid.Column="3"
-                    BackgroundColor="DarkOrange"
+                    BackgroundColor="{Binding ThemeService.OperatorButtonColor}"
                     Command="{Binding OperatorCommand}"
                     CommandParameter="/"
+                    FontSize="24"
                     Text="/"
-                    TextColor="White" />
+                    TextColor="{Binding ThemeService.ButtonTextColor}" />
             </Grid>
 
             <!--  Klawiatura numeryczna  -->
@@ -114,134 +135,152 @@
                 <Button
                     Grid.Row="0"
                     Grid.Column="0"
-                    BackgroundColor="White"
+                    BackgroundColor="{Binding ThemeService.ButtonBackgroundColor}"
                     Command="{Binding NumberCommand}"
                     CommandParameter="7"
+                    FontSize="18"
                     Text="7"
-                    TextColor="Black" />
+                    TextColor="{Binding ThemeService.ButtonTextColor}" />
                 <Button
                     Grid.Row="0"
                     Grid.Column="1"
-                    BackgroundColor="White"
+                    BackgroundColor="{Binding ThemeService.ButtonBackgroundColor}"
                     Command="{Binding NumberCommand}"
                     CommandParameter="8"
+                    FontSize="18"
                     Text="8"
-                    TextColor="Black" />
+                    TextColor="{Binding ThemeService.ButtonTextColor}" />
                 <Button
                     Grid.Row="0"
                     Grid.Column="2"
-                    BackgroundColor="White"
+                    BackgroundColor="{Binding ThemeService.ButtonBackgroundColor}"
                     Command="{Binding NumberCommand}"
                     CommandParameter="9"
+                    FontSize="18"
                     Text="9"
-                    TextColor="Black" />
+                    TextColor="{Binding ThemeService.ButtonTextColor}" />
                 <Button
                     Grid.Row="0"
                     Grid.Column="3"
-                    BackgroundColor="DarkOrange"
+                    BackgroundColor="{Binding ThemeService.OperatorButtonColor}"
                     Command="{Binding OperatorCommand}"
                     CommandParameter="*"
+                    FontSize="24"
                     Text="×"
-                    TextColor="White" />
+                    TextColor="{Binding ThemeService.ButtonTextColor}" />
 
                 <!--  Drugi rząd  -->
                 <Button
                     Grid.Row="1"
                     Grid.Column="0"
-                    BackgroundColor="White"
+                    BackgroundColor="{Binding ThemeService.ButtonBackgroundColor}"
                     Command="{Binding NumberCommand}"
                     CommandParameter="4"
+                    FontSize="18"
                     Text="4"
-                    TextColor="Black" />
+                    TextColor="{Binding ThemeService.ButtonTextColor}" />
                 <Button
                     Grid.Row="1"
                     Grid.Column="1"
-                    BackgroundColor="White"
+                    BackgroundColor="{Binding ThemeService.ButtonBackgroundColor}"
                     Command="{Binding NumberCommand}"
                     CommandParameter="5"
+                    FontSize="18"
                     Text="5"
-                    TextColor="Black" />
+                    TextColor="{Binding ThemeService.ButtonTextColor}" />
                 <Button
                     Grid.Row="1"
                     Grid.Column="2"
-                    BackgroundColor="White"
+                    BackgroundColor="{Binding ThemeService.ButtonBackgroundColor}"
                     Command="{Binding NumberCommand}"
                     CommandParameter="6"
+                    FontSize="18"
                     Text="6"
-                    TextColor="Black" />
+                    TextColor="{Binding ThemeService.ButtonTextColor}" />
                 <Button
                     Grid.Row="1"
                     Grid.Column="3"
-                    BackgroundColor="DarkOrange"
+                    BackgroundColor="{Binding ThemeService.OperatorButtonColor}"
                     Command="{Binding OperatorCommand}"
                     CommandParameter="-"
+                    FontSize="24"
                     Text="−"
-                    TextColor="White" />
+                    TextColor="{Binding ThemeService.ButtonTextColor}" />
 
                 <!--  Trzeci rząd  -->
                 <Button
                     Grid.Row="2"
                     Grid.Column="0"
-                    BackgroundColor="White"
+                    BackgroundColor="{Binding ThemeService.ButtonBackgroundColor}"
                     Command="{Binding NumberCommand}"
                     CommandParameter="1"
+                    FontSize="18"
                     Text="1"
-                    TextColor="Black" />
+                    TextColor="{Binding ThemeService.ButtonTextColor}" />
                 <Button
                     Grid.Row="2"
                     Grid.Column="1"
-                    BackgroundColor="White"
+                    BackgroundColor="{Binding ThemeService.ButtonBackgroundColor}"
                     Command="{Binding NumberCommand}"
                     CommandParameter="2"
+                    FontSize="18"
                     Text="2"
-                    TextColor="Black" />
+                    TextColor="{Binding ThemeService.ButtonTextColor}" />
                 <Button
                     Grid.Row="2"
                     Grid.Column="2"
-                    BackgroundColor="White"
+                    BackgroundColor="{Binding ThemeService.ButtonBackgroundColor}"
                     Command="{Binding NumberCommand}"
                     CommandParameter="3"
+                    FontSize="18"
                     Text="3"
-                    TextColor="Black" />
+                    TextColor="{Binding ThemeService.ButtonTextColor}" />
                 <Button
                     Grid.Row="2"
                     Grid.Column="3"
-                    BackgroundColor="DarkOrange"
+                    BackgroundColor="{Binding ThemeService.OperatorButtonColor}"
                     Command="{Binding OperatorCommand}"
                     CommandParameter="+"
+                    FontSize="24"
                     Text="+"
-                    TextColor="White" />
+                    TextColor="{Binding ThemeService.ButtonTextColor}" />
 
                 <!--  Czwarty rząd  -->
                 <Button
                     Grid.Row="3"
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
-                    BackgroundColor="White"
+                    BackgroundColor="{Binding ThemeService.ButtonBackgroundColor}"
                     Command="{Binding NumberCommand}"
                     CommandParameter="0"
+                    FontSize="18"
                     Text="0"
-                    TextColor="Black" />
+                    TextColor="{Binding ThemeService.ButtonTextColor}" />
                 <Button
                     Grid.Row="3"
                     Grid.Column="2"
-                    BackgroundColor="White"
+                    BackgroundColor="{Binding ThemeService.ButtonBackgroundColor}"
                     Command="{Binding NumberCommand}"
                     CommandParameter="."
+                    FontSize="18"
                     Text=","
-                    TextColor="Black" />
+                    TextColor="{Binding ThemeService.ButtonTextColor}" />
                 <Button
                     Grid.Row="3"
                     Grid.Column="3"
-                    BackgroundColor="DarkOrange"
+                    BackgroundColor="{Binding ThemeService.OperatorButtonColor}"
                     Command="{Binding EqualsCommand}"
+                    FontSize="24"
                     Text="="
-                    TextColor="White" />
+                    TextColor="{Binding ThemeService.ButtonTextColor}" />
             </Grid>
         </Grid>
 
         <!--  Historia  -->
-        <Grid Grid.Row="0" IsVisible="{Binding ShowHistory}">
+        <Grid
+            Grid.Row="1"
+            BackgroundColor="{Binding ThemeService.BackgroundColor}"
+            IsVisible="{Binding ShowHistory}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -254,12 +293,16 @@
                 FontAttributes="Bold"
                 FontSize="24"
                 HorizontalOptions="Center"
-                Text="Historia obliczeń" />
+                Text="Historia obliczeń"
+                TextColor="{Binding ThemeService.TextColor}" />
 
-            <CollectionView Grid.Row="1" ItemsSource="{Binding History}">
+            <CollectionView
+                Grid.Row="1"
+                BackgroundColor="{Binding ThemeService.BackgroundColor}"
+                ItemsSource="{Binding History}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:CalculationHistory">
-                        <Grid Padding="15,10">
+                        <Grid Padding="15,10" BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:CalculatorViewModel}}, Path=ThemeService.BackgroundColor}">
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:CalculatorViewModel}}, Path=UseHistoryItemCommand}" CommandParameter="{Binding .}" />
                             </Grid.GestureRecognizers>
@@ -273,12 +316,12 @@
                                 Grid.Row="0"
                                 FontSize="16"
                                 Text="{Binding DisplayText}"
-                                TextColor="Black" />
+                                TextColor="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:CalculatorViewModel}}, Path=ThemeService.TextColor}" />
                             <Label
                                 Grid.Row="1"
                                 FontSize="12"
                                 Text="{Binding TimeDisplay}"
-                                TextColor="Gray" />
+                                TextColor="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:CalculatorViewModel}}, Path=ThemeService.SecondaryTextColor}" />
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
@@ -289,13 +332,14 @@
                 Margin="20,10"
                 BackgroundColor="Red"
                 Command="{Binding ClearHistoryCommand}"
+                HorizontalOptions="Start"
                 Text="Wyczyść historię"
                 TextColor="White" />
         </Grid>
 
         <!--  Przycisk historii  -->
         <Button
-            Grid.Row="1"
+            Grid.Row="4"
             Margin="10"
             BackgroundColor="Gray"
             Command="{Binding ToggleHistoryCommand}"
