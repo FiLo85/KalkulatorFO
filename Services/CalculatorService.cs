@@ -28,11 +28,9 @@ public class CalculatorService
     {
         try
         {
-            // Normalizuj wyrażenie - zamień przecinki na kropki
             string normalizedExpression = NormalizeExpression(expression);
 
             var table = new DataTable();
-            // Ustaw kulturę dla DataTable na InvariantCulture
             table.Locale = InvariantCulture;
 
             var result = table.Compute(normalizedExpression, null);
@@ -41,8 +39,11 @@ public class CalculatorService
 
             double numericResult = Convert.ToDouble(result, InvariantCulture);
 
-            // Formatuj wynik dla wyświetlenia (zawsze z kropką)
             string formattedResult = FormatResult(numericResult);
+            if (double.IsInfinity(numericResult) || double.IsNaN(numericResult))
+            {
+                throw new InvalidOperationException("Nie można dzielić przez 0");
+            }
 
             AddToHistory(expression, formattedResult);
             return numericResult;
@@ -58,13 +59,11 @@ public class CalculatorService
         if (string.IsNullOrEmpty(expression))
             return expression;
 
-        // Zamień wszystkie przecinki na kropki dla obliczeń
         return expression.Replace(',', '.');
     }
 
     private string FormatResult(double result)
     {
-        // Formatuj wynik zawsze z kropką jako separatorem dziesiętnym
         return result.ToString(DisplayCulture);
     }
 
@@ -78,7 +77,6 @@ public class CalculatorService
         if (string.IsNullOrEmpty(input))
             return 0;
 
-        // Normalizuj input - zamień przecinki na kropki
         string normalizedInput = input.Replace(',', '.');
 
         if (double.TryParse(normalizedInput, NumberStyles.Float, InvariantCulture, out double result))
@@ -102,7 +100,7 @@ public class CalculatorService
 
         while (_history.Count > MaxHistoryItems)
         {
-            _history.RemoveAt(_history.Count - 1); // Poprawka błędu składniowego
+            _history.RemoveAt(_history.Count - 1);
         }
     }
 
