@@ -18,7 +18,7 @@ public class ThemeService : INotifyPropertyChanged
 {
     private AppTheme _currentTheme = AppTheme.Light;
     private bool _isDarkMode;
-    public string ThemeButtonText => IsDarkMode ? "Ciemny" : "Jasny";
+    public string ThemeButtonText => IsDarkMode ? "jasny" : "Ciemny";
 
     public static ThemeService Instance { get; } = new ThemeService();
 
